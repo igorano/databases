@@ -1,19 +1,19 @@
 package interfaces;
 
 public interface OracleQueries {
-    public default void selectAll(){
-        String selectAll = "SELECT * FROM STUDENTS ;";
+    default String selectAll(){
+        return "SELECT * FROM STUDENTS ;";
     };
-    public default void createTable() {
-        String createTable = "CREATE TABLE students.students (StudentID int,FirstName varchar(255),LastName varchar(255));";
-    };
-
-    public default void createDatabase() {
-        String createTable = "CREATE DATABASE STUDENTS";
+    default String createTable() {
+        return "CREATE TABLE students.students (StudentID int,FirstName varchar(255),LastName varchar(255));";
     };
 
-    public default void insert(int id, String firstName, String lastName){
-        String insert = String.format("INSERT INTO students.students VALUES (%2d, %s, %s );", id , firstName, lastName);
+    default String createDatabase() {
+        return "CREATE DATABASE STUDENTS";
+    };
+
+    default String insert(int id, String firstName, String lastName){
+        return String.format("INSERT INTO students.students VALUES (%2d, %s, %s );", id , firstName, lastName);
     };
 
 
