@@ -4,9 +4,8 @@ public interface MySQLQueries {
     default String selectAll(){
         return "SELECT * FROM STUDENTS ;";
     };
-    default String createTable() {
-        return "CREATE TABLE students.students (StudentID int,FirstName varchar(255),LastName varchar(255));";
-    };
+    default void createTable() {
+    }
 
     default String createDatabase() {
         return "CREATE DATABASE STUDENTS";

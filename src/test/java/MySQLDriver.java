@@ -1,9 +1,11 @@
+import interfaces.MySQLQueries;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class MySQLDriver extends DatabaseDriver {
+public class MySQLDriver extends DatabaseDriver implements MySQLQueries {
     private static Properties prop;
 
     public void setupDefaultConnection(){

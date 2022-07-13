@@ -42,12 +42,19 @@ public class MyStepdefs implements MySQLQueries {
          stmt = conn.createStatement();
 
         stmt.execute(createDatabase());
-        stmt.executeUpdate(createTable());
+        createTable();
         for (int i = 0; i <5 ; i++ ) {
             stmt.execute(insert(1, "Ivan", "Petrov"));
         }
     }
-
+    @Override
+    public void createTable() {
+        try {
+            stmt.executeQuery("CREATE TABLE students.students (StudentID int,FirstName varchar(255),LastName varchar(255));");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     @Then("verify created records")
     public void verify_created_records() throws SQLException {
         ResultSet r = stmt.executeQuery(countIds());
@@ -59,6 +66,7 @@ public class MyStepdefs implements MySQLQueries {
         ResultSet firstnameRes = stmt.executeQuery(selectDistinctFirstname());
         firstnameRes.next();
         String fName = firstnameRes.getString("Firstname");
+        createTable();
         System.out.println("FirstName is " + fName);
 
         ResultSet lastnameRes = stmt.executeQuery(selectDistinctLastname());
