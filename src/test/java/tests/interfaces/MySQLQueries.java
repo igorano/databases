@@ -1,4 +1,4 @@
-package interfaces;
+package tests.interfaces;
 
 public interface MySQLQueries {
     default String selectAll(){

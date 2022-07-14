@@ -1,4 +1,4 @@
-package interfaces;
+package tests.interfaces;
 
 public interface OracleQueries {
     default String selectAll(){

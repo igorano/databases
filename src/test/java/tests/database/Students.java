@@ -1,4 +1,4 @@
-package database;
+package tests.database;
 
 public class Students {
     private int id;
