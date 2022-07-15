@@ -25,41 +25,34 @@ public class MyStepdefs extends DatabaseDriver implements MySQLQueries {
     public void create_five_records() throws SQLException {
          stmt = conn.createStatement();
 
-        stmt.execute(createDatabase());
-        createTable();
+        stmt.execute(CREATE_DATABASE);
+        stmt.execute(CREATE_TABLE);
         for (int i = 0; i <5 ; i++ ) {
-            stmt.execute(insert(1, "Ivan", "Petrov"));
+            stmt.execute(String.format(INSERT_QUERY, 1, "Ivan", "Petrov"));
         }
     }
-    @Override
-    public void createTable() {
-        try {
-            stmt.execute("CREATE TABLE students.students (StudentID int,FirstName varchar(255),LastName varchar(255));");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+
     @Then("verify created records")
     public void verify_created_records() throws SQLException {
-        ResultSet r = stmt.executeQuery(countIds());
+        ResultSet r = stmt.executeQuery(COUNT_IDS);
         r.next();
         int countedIDs = r.getInt("count(StudentID)");
         stmt.getMaxRows();
         Assert.assertEquals(countedIDs,5);
 
-        ResultSet firstnameRes = stmt.executeQuery(selectDistinctFirstname());
+        ResultSet firstnameRes = stmt.executeQuery(String.format(SELECT_DISTINCT_FIRSTNAME));
         firstnameRes.next();
         String fName = firstnameRes.getString("Firstname");
         System.out.println("FirstName is " + fName);
 
-        ResultSet lastnameRes = stmt.executeQuery(selectDistinctLastname());
+        ResultSet lastnameRes = stmt.executeQuery(String.format(SELECT_DISTINCT_LASTNAME));
         lastnameRes.next();
         String lName = lastnameRes.getString("Lastname");
         System.out.println("Lastname is " + lName);
 
         Assert.assertEquals(fName + " " + lName ,"Ivan Petrov");
 
-        stmt.executeUpdate(dropDB());
+        stmt.executeUpdate(DROP_DATABASE);
         System.out.println("Database deleted successfully...");
     }
 }

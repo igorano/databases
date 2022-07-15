@@ -5,9 +5,8 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(
-        features = {"src/test/resources/features/DatabaseTesting.feature"},
-        glue="StepsDefinitions")
+@CucumberOptions(features = "classpath:features",
+glue="tests.StepsDefinitions")
 
 public class TestRunner {
 }

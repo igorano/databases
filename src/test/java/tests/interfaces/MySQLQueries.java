@@ -1,35 +1,11 @@
 package tests.interfaces;
 
 public interface MySQLQueries {
-    default String selectAll(){
-        return "SELECT * FROM STUDENTS ;";
-    };
-    default void createTable() {
-    }
-
-    default String createDatabase() {
-        return "CREATE DATABASE STUDENTS";
-    };
-
-    default String insert(int id, String firstName, String lastName){
-        return  String.format("INSERT INTO students.students VALUES (%2d, '%s', '%s' );", id , firstName, lastName);
-    };
-
-    default String countIds(){
-        return String.format("SELECT COUNT(StudentID) FROM students.students");
-    };
-
-    default String selectByFirstname(String firstName){
-        return  String.format("SELECT * FROM students.students Where students.Firstname = '%s'", firstName);
-    };
-
-    default String selectDistinctLastname(){
-        return  String.format("SELECT DISTINCT(LastName) FROM students.students");
-    };
-    default String selectDistinctFirstname(){
-        return  String.format("SELECT DISTINCT(FirstName) FROM students.students");
-    };
-    default String dropDB(){
-        return "DROP DATABASE STUDENTS;";
-    };
+    String CREATE_DATABASE =  "CREATE DATABASE STUDENTS";
+    String INSERT_QUERY =  "INSERT INTO students.students VALUES (%2d, '%s', '%s' );";
+    String COUNT_IDS = "SELECT COUNT(StudentID) FROM students.students;";
+    String SELECT_DISTINCT_LASTNAME = "SELECT DISTINCT(LastName) FROM students.students;";
+    String SELECT_DISTINCT_FIRSTNAME = "SELECT DISTINCT(FirstName) FROM students.students;";
+    String DROP_DATABASE = "DROP DATABASE STUDENTS;";
+    String CREATE_TABLE ="CREATE TABLE students.students (StudentID int,FirstName varchar(255),LastName varchar(255));";
 }
