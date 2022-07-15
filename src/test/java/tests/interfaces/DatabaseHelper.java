@@ -1,4 +1,4 @@
-package interfaces;
+package tests.interfaces;
 
 public interface DatabaseHelper {
     static String getDataByID(int id){
