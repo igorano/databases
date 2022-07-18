@@ -10,7 +10,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class DatabaseDriver implements DatabaseHelper {
+public class DatabaseDriver {
      String jdbcUrl = null;
      String userName = null;
      String passWord = null;
