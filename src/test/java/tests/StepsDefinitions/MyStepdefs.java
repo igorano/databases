@@ -11,7 +11,7 @@ import org.junit.Assert;
 import java.sql.*;
 
 
-public class MyStepdefs extends DatabaseDriver implements MySQLQueries {
+public class MyStepdefs implements MySQLQueries {
     private Connection conn;
     private static Statement stmt;
 
