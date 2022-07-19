@@ -1,6 +1,6 @@
 package tests.interfaces;
 
-public interface MySQLQueries {
+public interface iMySQLQueries {
     String CREATE_DATABASE =  "CREATE DATABASE STUDENTS";
     String INSERT_QUERY =  "INSERT INTO students.students VALUES (%2d, '%s', '%s' );";
     String COUNT_IDS = "SELECT COUNT(StudentID) FROM students.students;";
@@ -8,4 +8,7 @@ public interface MySQLQueries {
     String SELECT_DISTINCT_FIRSTNAME = "SELECT DISTINCT(FirstName) FROM students.students;";
     String DROP_DATABASE = "DROP DATABASE STUDENTS;";
     String CREATE_TABLE ="CREATE TABLE students.students (StudentID int,FirstName varchar(255),LastName varchar(255));";
+
+    String TABLE_COUNT_QUERY = "SELECT COUNT(*) FROM students.tables";
+    String BY_FULL_NAME_QUERY = "SELECT * FROM FROM students.tables WHERE NAME1 = '%s' AND NAME2 = '%s'";
 }

@@ -1,32 +1,21 @@
 package tests.drivers;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Properties;
+import tests.interfaces.iMySQLQueries;
 
-public class MySQLDriver extends DatabaseDriver {
-        public Connection connectToMysql() throws SQLException {
-            String jdbcUrl = null;
-            String username = null;
-            String password = null;
+public class MySQLDriver extends DatabaseDriver implements iMySQLQueries {
 
-            Properties prop = new Properties();
-            try (
-                    InputStream input = new FileInputStream("./src/test/resources/settings.properties")) {
-                prop.load(input);
-                // get the property value and print it out
-                jdbcUrl = prop.getProperty("jdbcUrl");
-                username = prop.getProperty("username");
-                password = prop.getProperty("password");
+    public MySQLDriver() {
+        super.driver = getConnection("mySQL");
+    }
 
-            } catch (
-                    IOException ex) {
-                ex.printStackTrace();
-            }
+    @Override
+    public Integer getTableCount() {
+        return getTableCount(TABLE_COUNT_QUERY);
+    }
 
-            return getAnyConnection(jdbcUrl, username, password);
-        }
+    @Override
+    public String getByFullName(String firstName, String lastName) {
+        return getByFullName(BY_FULL_NAME_QUERY, firstName, lastName);
+    }
+
 }
