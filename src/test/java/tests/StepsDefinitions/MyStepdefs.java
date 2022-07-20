@@ -29,7 +29,15 @@ public class MyStepdefs {
     @Then("I can retrieve students data")
     public void count_tables(){
         System.out.println(students.getTableCount());
-        System.out.println(students.getByFullName("Ivaylo", "Goranovskiy"));
+        System.out.println(students.getByFullName("Ivaylo", "Goranovski"));
 
+    }
+
+    @When("create five records")
+    public void createFiveRecords() {
+    }
+
+    @Then("verify created records")
+    public void verifyCreatedRecords() {
     }
 }

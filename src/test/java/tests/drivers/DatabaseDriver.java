@@ -46,22 +46,20 @@ public abstract class DatabaseDriver implements iDatabaseHelper {
             prop.load(input);
             // get the property value and print it out
             switch (dbType){
-                case "Oracle":
+                case "mySQL":
                     return DriverManager.getConnection(
                             prop.getProperty("jdbcURL"),
                             prop.getProperty("username"),
                             prop.getProperty("password"));
-                case "mySQL":
+                case "Oracle":
                     return DriverManager.getConnection(
                             prop.getProperty("oracleJdbcURL"),
                             prop.getProperty("oracleUsername"),
                             prop.getProperty("oraclePassword"));
             }
         } catch (
-                IOException ex) {
+                IOException | SQLException ex) {
             ex.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
 
         //TODO: handle this
