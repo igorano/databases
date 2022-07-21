@@ -7,6 +7,4 @@ public class Students {
     private int id;
     private String fName;
     private String lName;
-
-
 }

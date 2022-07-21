@@ -1,12 +1,31 @@
 package tests.drivers;
 
-import tests.interfaces.MySQLQueries;
-import tests.interfaces.OracleQueries;
+import tests.interfaces.iOracleQueries;
 
-import java.sql.SQLException;
+public class OracleDriver extends DatabaseDriver implements iOracleQueries {
 
-public class OracleDriver extends DatabaseDriver implements OracleQueries {
-    public void connectToOracle() throws SQLException {
-        getAnyConnection("oracleJdbcURL", "oracleUsername", "oraclePassword");
+    public OracleDriver() {
+        super.driver = getConnection("Oracle");
     }
+
+    @Override
+    public Integer getTableCount(){
+        return getTableCount(TABLE_COUNT_QUERY);
+    }
+
+    @Override
+    public String getByFullName(String firstName, String lastName) {
+        return getByFullName(BY_FULL_NAME_QUERY, firstName, lastName);
+    }
+
+    @Override
+    public void createDB(String dbName) {
+
+    }
+
+    @Override
+    public void createTable(String tableName) {
+
+    }
+
 }

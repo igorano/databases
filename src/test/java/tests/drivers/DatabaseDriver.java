@@ -1,40 +1,136 @@
 package tests.drivers;
 
-import tests.interfaces.DatabaseHelper;
+import org.junit.Assert;
+import tests.interfaces.iDatabaseHelper;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
-public class DatabaseDriver {
-     String jdbcUrl = null;
-     String userName = null;
-     String passWord = null;
+public abstract class DatabaseDriver implements iDatabaseHelper {
 
+    Connection driver;
 
-    public Connection getAnyConnection(String url, String username, String password) throws SQLException {
+    public Integer getTableCount(String statement) {
+        ResultSet rs;
+
+        try {
+            rs = driver.createStatement().executeQuery(statement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        //TODO: extract from ResultSet and return required object
+        return null;
+    }
+
+    public String getByFullName(String statement, String firstName, String lastName){
+        ResultSet rs;
+
+        try {
+            rs = driver.createStatement().executeQuery(String.format(statement, firstName, lastName));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        //TODO: extract from ResultSet and return required object
+        return null;
+    }
+
+    public String getFirstName(String statement, String firstName) throws SQLException {
+        ResultSet rs = null;
+
+        try {
+            rs = driver.createStatement().executeQuery(String.format(statement, firstName));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        rs.next();
+        String fName = rs.getString("Firstname");
+
+        return fName;
+    }
+
+    public String getLastName(String statement, String lastName) throws SQLException {
+        ResultSet rs = null;
+
+        try {
+            rs = driver.createStatement().executeQuery(String.format(statement, lastName));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        rs.next();
+        String lName = rs.getString("Lastname");
+
+        return lName;
+    }
+    public void createDB(String statement, String dbName){
+        ResultSet rs;
+
+        try {
+            rs = driver.createStatement().executeQuery(String.format(statement,dbName));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createTable(String statement, String tableName){
+        ResultSet rs;
+
+        try {
+            rs = driver.createStatement().executeQuery(String.format(statement,tableName));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public Integer countId(String statement, String tableName) throws SQLException {
+        ResultSet rs = null;
+
+        try {
+            rs = driver.createStatement().executeQuery(String.format(statement,tableName));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        rs.next();
+        int countedID = rs.getInt("count(StudentID)");
+        return  countedID;
+    }
+
+    public void dropDb(String statement,String dbName) {
+        try {
+            driver.createStatement().executeQuery(String.format(statement,dbName));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Connection getConnection(String dbType) {
         Properties prop = new Properties();
-        Connection dbConnection = null;
+
         try (
-                InputStream input = new FileInputStream("./src/test/resources/settings.properties")) {
+            InputStream input = new FileInputStream("./src/test/resources/settings.properties")) {
             prop.load(input);
             // get the property value and print it out
-            jdbcUrl = prop.getProperty(url);
-            userName = prop.getProperty(username);
-            passWord = prop.getProperty(password);
-
-            dbConnection = DriverManager.getConnection(jdbcUrl, userName, passWord);
-
-            if (dbConnection != null) { System.out.println("Successfully connected to MySQL database test"); }
-
-        } catch (IOException ex) {
-            System.out.println("An error occurred while connecting MySQL databse");
+            switch (dbType){
+                case "mySQL":
+                    return DriverManager.getConnection(
+                            prop.getProperty("jdbcURL"),
+                            prop.getProperty("username"),
+                            prop.getProperty("password"));
+                case "Oracle":
+                    return DriverManager.getConnection(
+                            prop.getProperty("oracleJdbcURL"),
+                            prop.getProperty("oracleUsername"),
+                            prop.getProperty("oraclePassword"));
+            }
+        } catch (
+                IOException | SQLException ex) {
             ex.printStackTrace();
         }
-        return dbConnection;
+
+        //TODO: handle this
+        return null;
     }
 }
