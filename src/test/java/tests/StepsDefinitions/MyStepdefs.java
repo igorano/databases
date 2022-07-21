@@ -28,7 +28,7 @@ public class MyStepdefs {
     }
 
     @When("create five records")
-    public void createFiveRecords() {
+    public void createFiveRecords() throws SQLException {
         students.createDB("students");
         students.createTable("students");
         for (int i = 0; i <5 ; i++ ) {

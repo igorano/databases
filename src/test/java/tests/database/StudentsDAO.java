@@ -16,7 +16,7 @@ public class StudentsDAO {
         return driver.getTableCount();
     }
 
-    public void createDB(String dbName){
+    public void createDB(String dbName) throws SQLException {
         driver.createDB(dbName);
     }
     public void createTable(String TableName){

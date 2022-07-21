@@ -13,7 +13,7 @@ public abstract class DatabaseDriver implements iDatabaseHelper {
 
     Connection driver;
 
-    public Integer getTableCount(String statement) {
+/*    public Integer getTableCount(String statement) {
         ResultSet rs;
 
         try {
@@ -37,7 +37,7 @@ public abstract class DatabaseDriver implements iDatabaseHelper {
 
         //TODO: extract from ResultSet and return required object
         return null;
-    }
+    }*/
 
     public String getFirstName(String statement, String firstName) throws SQLException {
         ResultSet rs = null;
@@ -66,14 +66,8 @@ public abstract class DatabaseDriver implements iDatabaseHelper {
 
         return lName;
     }
-    public void createDB(String statement, String dbName){
-        ResultSet rs;
-
-        try {
-            rs = driver.createStatement().executeQuery(String.format(statement,dbName));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void createDB(String statement, String dbName) throws SQLException {
+        driver.createStatement().executeQuery(String.format(statement,dbName));
     }
 
     public void createTable(String statement, String tableName){
@@ -129,8 +123,7 @@ public abstract class DatabaseDriver implements iDatabaseHelper {
                 IOException | SQLException ex) {
             ex.printStackTrace();
         }
-
-        //TODO: handle this
-        return null;
+        driver = getConnection(dbType);
+        return driver;
     }
 }

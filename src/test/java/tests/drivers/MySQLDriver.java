@@ -10,13 +10,19 @@ public class MySQLDriver extends DatabaseDriver implements iMySQLQueries {
         super.driver = getConnection("mySQL");
     }
 
+
     @Override
     public Integer getTableCount() {
-        return getTableCount(TABLE_COUNT_QUERY);
+        return null;
     }
 
     @Override
-    public void createDB(String dbName) {
+    public String getByFullName(String firstName, String lastName) {
+        return null;
+    }
+
+    @Override
+    public void createDB(String dbName) throws SQLException {
         createDB(CREATE_DATABASE, dbName);
     }
 
@@ -28,11 +34,6 @@ public class MySQLDriver extends DatabaseDriver implements iMySQLQueries {
     @Override
     public void insertRecord(String tableName, Integer id, String firstName, String lastName) {
 
-    }
-
-    @Override
-    public String getByFullName(String firstName, String lastName) {
-        return getByFullName(BY_FULL_NAME_QUERY, firstName, lastName);
     }
 
     @Override

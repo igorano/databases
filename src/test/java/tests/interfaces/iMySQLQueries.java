@@ -11,6 +11,6 @@ public interface iMySQLQueries {
     String DROP_DATABASE = "DROP DATABASE STUDENTS;";
     String CREATE_TABLE ="CREATE TABLE students.%s (StudentID int,FirstName varchar(255),LastName varchar(255));";
 
-    String TABLE_COUNT_QUERY = "SELECT COUNT(*) FROM students.tables";
+    String TABLE_COUNT_QUERY = "SELECT COUNT(*) FROM students.%s";
     String BY_FULL_NAME_QUERY = "SELECT * FROM FROM students.tables WHERE NAME1 = '%s' AND NAME2 = '%s'";
 }
