@@ -1,13 +1,109 @@
 package tests.drivers;
 
-import tests.interfaces.DatabaseHelper;
+import org.junit.Assert;
+import tests.interfaces.iDatabaseHelper;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.*;
+import java.util.Properties;
 
-public class DatabaseDriver implements DatabaseHelper {
-    public Connection getAnyConnection(String url, String username, String password) throws SQLException {
-        return  DriverManager.getConnection(url, username, password);
+public abstract class DatabaseDriver implements iDatabaseHelper {
+
+    Connection driver;
+
+    public String getFirstName(String statement, String firstName) throws SQLException {
+        ResultSet rs = null;
+
+        try {
+            rs = driver.createStatement().executeQuery(String.format(statement, firstName));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        rs.next();
+        String fName = rs.getString("Firstname");
+
+        return fName;
+    }
+
+    public String getLastName(String statement, String lastName) throws SQLException {
+        ResultSet rs = null;
+
+        try {
+            rs = driver.createStatement().executeQuery(String.format(statement, lastName));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        rs.next();
+        String lName = rs.getString("Lastname");
+
+        return lName;
+    }
+    public void insertRecord(String statement,String tableName, String id, String firstName, String lastName){
+        try {
+            driver.createStatement().execute(String.format(statement,tableName, id, firstName, lastName));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createTable(String statement, String tableName){
+        try {
+            driver.createStatement().execute(String.format(statement,tableName));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public Integer countId(String statement, String tableName) throws SQLException {
+        ResultSet rs = null;
+
+        try {
+            rs = driver.createStatement().executeQuery(String.format(statement,tableName));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        rs.next();
+        int countedID = rs.getInt("count(StudentID)");
+        return  countedID;
+    }
+
+    public void dropDb(String statement,String dbName) {
+        try {
+            driver.createStatement().executeUpdate(String.format(statement,dbName));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createDB(String statement, String dbName) throws SQLException {
+        driver.createStatement().executeUpdate(String.format(statement,dbName));
+    }
+
+    public Connection getConnection(String dbType) {
+        Properties prop = new Properties();
+
+        try (
+            InputStream input = new FileInputStream("./src/test/resources/settings.properties")) {
+            prop.load(input);
+            // get the property value and print it out
+            switch (dbType){
+                case "mySQL":
+                    return DriverManager.getConnection(
+                            prop.getProperty("jdbcURL"),
+                            prop.getProperty("username"),
+                            prop.getProperty("password"));
+                case "Oracle":
+                    return DriverManager.getConnection(
+                            prop.getProperty("oracleJdbcURL"),
+                            prop.getProperty("oracleUsername"),
+                            prop.getProperty("oraclePassword"));
+            }
+        } catch (
+                IOException | SQLException ex) {
+            ex.printStackTrace();
+        }
+        driver = getConnection(dbType);
+        return driver;
     }
 }

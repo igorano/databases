@@ -1,34 +1,92 @@
 package tests.drivers;
 
-import tests.interfaces.MySQLQueries;
+import tests.interfaces.iOracleQueries;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Properties;
 
-public class OracleDriver extends DatabaseDriver implements MySQLQueries {
-    public Connection connectToOracle() throws SQLException {
-        String jdbcUrl = null;
-        String username = null;
-        String password = null;
+public abstract class OracleDriver extends DatabaseDriver implements iOracleQueries {
 
-        Properties prop = new Properties();
-        try (
-                InputStream input = new FileInputStream("./src/test/resources/settings.properties")) {
-            prop.load(input);
-            // get the property value and print it out
-            jdbcUrl = prop.getProperty("oracleJdbcURL");
-            username = prop.getProperty("oracleUsername");
-            password = prop.getProperty("oraclePassword");
+    @Override
+    public void createDB(String dbName) throws SQLException {
 
-        } catch (
-                IOException ex) {
-            ex.printStackTrace();
-        }
-
-        return getAnyConnection(jdbcUrl, username, password);
     }
+
+    @Override
+    public void createTable(String tableName) {
+
+    }
+
+    @Override
+    public void insertRecord(String tableName, String id, String firstName, String lastName) {
+
+    }
+
+    @Override
+    public Integer countId(String tableName) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public String getLastname(String tableName) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public String getFirstname(String tableName) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public void dropDb(String dbName) {
+
+    }
+
+  /*  public OracleDriver() {
+        super.driver = getConnection("Oracle");
+    }
+
+    public Integer getTableCount(String tableCountQuery){
+        return getTableCount(TABLE_COUNT_QUERY);
+    }
+
+    @Override
+    public String getByFullName(String firstName, String lastName) {
+        return getByFullName(BY_FULL_NAME_QUERY, firstName, lastName);
+    }
+
+    @Override
+    public void createDB(String dbName) {
+
+    }
+
+    @Override
+    public void createTable(String tableName) {
+
+    }
+
+    @Override
+    public void insertRecord(String tableName, Integer id, String firstName, String lastName) {
+
+    }
+
+    @Override
+    public Integer countId(String tableName) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public String getLastname(String tableName) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public String getFirstname(String tableName) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public void dropDb(String dbName) {
+
+    }*/
+
 }
