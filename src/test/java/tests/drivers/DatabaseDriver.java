@@ -13,32 +13,6 @@ public abstract class DatabaseDriver implements iDatabaseHelper {
 
     Connection driver;
 
-/*    public Integer getTableCount(String statement) {
-        ResultSet rs;
-
-        try {
-            rs = driver.createStatement().executeQuery(statement);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        //TODO: extract from ResultSet and return required object
-        return null;
-    }
-
-    public String getByFullName(String statement, String firstName, String lastName){
-        ResultSet rs;
-
-        try {
-            rs = driver.createStatement().executeQuery(String.format(statement, firstName, lastName));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        //TODO: extract from ResultSet and return required object
-        return null;
-    }*/
-
     public String getFirstName(String statement, String firstName) throws SQLException {
         ResultSet rs = null;
 
