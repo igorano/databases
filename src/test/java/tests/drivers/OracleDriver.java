@@ -17,7 +17,7 @@ public abstract class OracleDriver extends DatabaseDriver implements iOracleQuer
     }
 
     @Override
-    public void insertRecord(String tableName, Integer id, String firstName, String lastName) {
+    public void insertRecord(String tableName, String id, String firstName, String lastName) {
 
     }
 

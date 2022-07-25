@@ -7,7 +7,6 @@ import tests.database.StudentsDAO;
 import tests.drivers.MySQLDriver;
 
 import java.sql.SQLException;
-import java.util.Optional;
 
 import org.junit.Assert;
 
@@ -32,13 +31,13 @@ public class MyStepdefs {
         students.createDB("students");
         students.createTable("students");
         for (int i = 0; i <5 ; i++ ) {
-            students.insertRecord("students",1, "Ivan", "Petrov");
+            students.insertRecord("students","1", "Ivan", "Petrov");
         }
     }
 
     @Then("verify created records")
     public void verifyCreatedRecords() throws SQLException {
-        Assert.assertEquals(Optional.ofNullable(students.countId("students")),5);
+        Assert.assertTrue( students.countId("students") == 5 );
         Assert.assertEquals(students.getFirstname("students"),"Ivan");
         Assert.assertEquals(students.getLastname("students"),"Petrov");
         students.dropDb("students");

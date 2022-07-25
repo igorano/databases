@@ -32,8 +32,8 @@ public class MySQLDriver extends DatabaseDriver implements iMySQLQueries {
     }
 
     @Override
-    public void insertRecord(String tableName, Integer id, String firstName, String lastName) {
-
+    public void insertRecord(String tableName, String id, String firstName, String lastName) {
+        insertRecord(INSERT_QUERY,tableName, id, firstName, lastName);
     }
 
     @Override

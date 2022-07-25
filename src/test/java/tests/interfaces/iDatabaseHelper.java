@@ -8,7 +8,7 @@ public interface iDatabaseHelper {
     String getByFullName(String firstName, String lastName);
     void createDB(String dbName) throws SQLException;
     void createTable(String tableName);
-    void insertRecord(String tableName, Integer id, String firstName, String lastName);
+    void insertRecord(String tableName, String id, String firstName, String lastName);
     Integer countId(String tableName) throws SQLException;
     String getLastname(String tableName) throws SQLException;
     String getFirstname(String tableName) throws SQLException;

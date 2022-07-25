@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 public interface iMySQLQueries {
     String CREATE_DATABASE =  "CREATE DATABASE STUDENTS";
-    String INSERT_QUERY =  "INSERT INTO students.students VALUES (%2d, '%s', '%s' );";
+    String INSERT_QUERY =  "INSERT INTO students.%s VALUES ('%s', '%s', '%s' );";
     String COUNT_IDS = "SELECT COUNT(StudentID) FROM students.students;";
     String SELECT_DISTINCT_LASTNAME = "SELECT DISTINCT(LastName) FROM students.students;";
     String SELECT_DISTINCT_FIRSTNAME = "SELECT DISTINCT(FirstName) FROM students.students;";

@@ -66,15 +66,17 @@ public abstract class DatabaseDriver implements iDatabaseHelper {
 
         return lName;
     }
-    public void createDB(String statement, String dbName) throws SQLException {
-        driver.createStatement().executeQuery(String.format(statement,dbName));
+    public void insertRecord(String statement,String tableName, String id, String firstName, String lastName){
+        try {
+            driver.createStatement().execute(String.format(statement,tableName, id, firstName, lastName));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void createTable(String statement, String tableName){
-        ResultSet rs;
-
         try {
-            rs = driver.createStatement().executeQuery(String.format(statement,tableName));
+            driver.createStatement().execute(String.format(statement,tableName));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -94,10 +96,14 @@ public abstract class DatabaseDriver implements iDatabaseHelper {
 
     public void dropDb(String statement,String dbName) {
         try {
-            driver.createStatement().executeQuery(String.format(statement,dbName));
+            driver.createStatement().executeUpdate(String.format(statement,dbName));
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void createDB(String statement, String dbName) throws SQLException {
+        driver.createStatement().executeUpdate(String.format(statement,dbName));
     }
 
     public Connection getConnection(String dbType) {

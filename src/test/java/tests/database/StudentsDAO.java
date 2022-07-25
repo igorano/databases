@@ -23,7 +23,7 @@ public class StudentsDAO {
         driver.createTable(TableName);
     }
 
-    public void insertRecord(String tableName, Integer id , String firstName, String lastName){
+    public void insertRecord(String tableName, String id , String firstName, String lastName){
         driver.insertRecord(tableName, id , firstName, lastName);
     }
 
